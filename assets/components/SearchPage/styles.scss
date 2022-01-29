@@ -1,0 +1,23 @@
+.search_container{
+	margin-left: 10px;
+	width: 500px;
+}
+
+.search_string{
+	width: 400px;
+}
+
+.result_container{
+	display: flex;
+}
+
+.result_element{
+	font-size: 20px;
+	
+	max-width: 500px;
+	margin-top: 5px;
+}
+
+.result_element_link{
+	text-decoration: none;
+}

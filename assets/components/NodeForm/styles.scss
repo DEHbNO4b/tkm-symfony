@@ -1,0 +1,45 @@
+.node_form{
+	position: absolute;
+	background-color: #fff;
+	border: 1px solid black;
+	top: -10px;
+	height: 80px;
+	width: 250px;
+}
+
+.node_form input{
+	background-color: #fff;
+	border: 1px solid black;
+	width: 90%;
+	align-self: flex-start;
+	margin-top: 5px;
+}
+
+.left{
+	left: -200px;
+}
+
+.right{
+	right: -200px;
+}	
+
+.top{
+	top: -80px;
+}
+
+.bottom{
+	top: 100px;
+}
+
+input[type='button']{
+	width: 80px;
+	margin: 10px;
+}
+
+.cancel{
+	float: left;
+}
+
+.save{
+	float: right;
+}

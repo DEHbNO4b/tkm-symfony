@@ -1,0 +1,62 @@
+.pair{
+	display: flex;
+	justify-content: center;
+}
+
+.tree_container{
+	width: 83%;
+	overflow: scroll;
+	height: 500px;
+	display: flex;
+	padding: 60px;
+	padding-top: 125px;
+}
+.row{
+	width: 100%;
+	display: flex;
+}
+
+.node_div{
+	display: flex;
+	align-items: center;
+	flex-direction: column;	
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.spouse_line{
+	min-width: 20px;
+	max-width: 20px;
+	min-height: 50px;
+	max-height: 50px;
+}
+
+.horisontal_line{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+canvas{
+	height: 40px;
+	width: 100%;
+}
+/*
+.tree_controls{
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	margin-top: -120px;
+	margin-left: -55px;
+	z-index: 2;
+}
+*/
+
+/*
+.tree_button{
+	text-align: center;
+	margin: 5px;
+	color: #000;
+	cursor: pointer;
+}
+*/

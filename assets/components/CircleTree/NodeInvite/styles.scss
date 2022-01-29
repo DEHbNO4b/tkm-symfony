@@ -1,0 +1,39 @@
+.active_invite_form{
+	position: absolute;
+	top:49px;
+	left: -150px;
+	border: 1px solid black;
+	background-color: #fff;
+	width: 270px;
+	height: 82px;
+	padding: 5px;
+	z-index: 1;
+}
+
+.active_invite_form input[type="text"]{
+	width: 100%;
+	background-color: #fff;
+	border: 1px solid black;
+}
+
+.active_invite_form .cancel{
+	float: left;
+}
+
+.active_invite_form .copy{
+	float: right;
+}
+
+.active_invite_form input[type="button"]{
+	width: auto;
+	background-color: #fff;
+	border: 1px solid black;
+}
+
+
+
+.active_invite_form.loading{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

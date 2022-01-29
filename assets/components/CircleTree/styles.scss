@@ -1,0 +1,25 @@
+#canvas_container{
+	height:100%;
+}
+
+#canvas_container canvas{
+	height: 100%;
+}
+
+.hidden{
+	display: none;
+}
+
+.showDeletedDiv{
+	position: absolute;
+	margin-top: 50px;
+	margin-left: 10px;
+	display: flex;
+	align-items: center;
+	z-index: 2;
+	background-color: #ffffff;
+}
+
+.showDeletedDiv span{
+	margin-left: 5px;
+}

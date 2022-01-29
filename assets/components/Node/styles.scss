@@ -1,0 +1,47 @@
+.node {
+	display: flex;
+	position: relative;
+    min-width: 150px;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+
+.click_field{
+	z-index: 1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 600px;
+	//background-color: #000;
+}
+
+
+.node span{
+	align-self: center;
+}
+
+.clicked_span{
+	//margin-left: auto;
+}
+
+.male{
+	background-color: #add8e6;
+	border-color: #1a89ac;
+}
+
+.female{
+	background-color: #ffc0cb;
+	border-color: #ea6980;
+}
+
+.nodeInput{
+	display: block;
+	position: relative;
+	z-index: 2;
+	width: 100px;
+}

@@ -1,0 +1,80 @@
+.newsItem{
+	display: flex;
+	width: 100%;
+}
+
+.newsItem.short{
+	cursor: pointer;
+}
+
+.newsItem.short:hover{
+	background-color: #eee;
+}
+
+.newsItem.full{
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.newsItem.short .imageBlock{
+	min-width: 200px;
+}
+
+.newsItem .imageBlock .short{
+	max-width: 200px;
+}
+
+.newsItem.full .imageBlock{
+	width: 70%;
+}
+
+.newsItem.full .imageBlock{
+	align-self: center;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.newsItem .imageBlock .full{
+	width: 100%;
+}
+
+.newsItem.full .infoBox{
+	margin-left: 200px;
+}
+
+.newsItem .infoBox{
+	display: flex;
+	width: 60%;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.newsItem .editBtn{
+	display: flex;
+}
+
+
+
+.hideNewsButton{
+	color: #0000EE;
+	text-decoration: underline;
+	text-decoration-color: #00e;
+	cursor: pointer;
+}
+
+
+.newsHeaderBox{
+	display: flex;
+	width: 100%;	
+}
+
+.newsHeaderBox b{
+	font-size: 14pt;
+	margin-right: 5px;
+	width: 70%;
+}
+
+.newsEditBtn a{
+	color: #00e;
+}

@@ -1,0 +1,26 @@
+
+.sided_right{
+	margin-left: 10px;
+}
+
+.male{
+	border-color: #1a89ac;
+}
+
+.female{
+	border-color: #ea6980;
+}
+
+.male.active{
+	background-color: #b685ff;
+}
+
+.female.active{
+	background-color: #d36d62;
+}
+
+.deactivate{
+	border: none;
+	background-color: none;
+	color: #aaa;
+}

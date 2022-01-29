@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/d3Dtree/styles.css">
+{% endblock %}
+
+{% block body %}
+<div id="graph"></div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="/js/d3js/d3.v5.min.js"></script>
+<script type="text/javascript" src="/js/lodash/lodash.js"></script>
+<script type="text/javascript" src="/js/d3js/dtree/dTree.js"></script>
+
+<script type="text/javascript">
+var data = '{{ treeData }}'.replace(/&quot;/g, '"');
+var jsonData = JSON.parse(data);
+
+dTree.init(jsonData,
+{
+    target: "#graph",
+    debug: true,
+    height: 800,
+    width: 1800,
+    callbacks: {
+        nodeClick: function(name, extra) {
+            //console.log(name);
+        },
+        textRenderer: function(name, extra, textClass) {
+            if (extra && extra.nickname)
+                name = name + " (" + extra.nickname + ")";
+            return "<p align='center' class='" + textClass + "'>" + name + "</p>";
+        }
+    }
+});
+</script>
+{% endblock %}

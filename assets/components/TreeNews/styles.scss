@@ -1,0 +1,32 @@
+.news{
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.addNewsLink{
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.addNewsLink b{
+	font-size: 13pt;
+}
+
+.addNewsLinkBtn{
+	height: 30px;
+	padding: 5px;
+	float: right;
+	background-color: #eee;
+	border: 1px solid #aaa;
+	margin-right: 10px;
+}
+
+.addNewsLinkBtn a{
+	text-decoration: none;
+	color: black;
+
+}

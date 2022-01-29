@@ -1,0 +1,73 @@
+.plus_button {
+	display: flex;
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	text-align: center;
+    min-width: 15px;
+    min-height: 15px;
+    max-width: 15px;
+    max-height: 15px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #00ff00;
+    z-index:2;
+    cursor: pointer;
+}
+
+.plus_button_active{
+	position: relative;
+	align-self: center;
+	text-align: center;
+	justify-content: center;
+}
+
+.plus_button_active b{
+	margin-left: 1px;
+}
+
+.nodeMenu{
+	position: absolute;
+	top: -43px;
+	right: -57px;
+	display: flex;
+	z-index: 2;
+	justify-content: center;
+	align-items: center;
+	width: 140px;
+	height: 100px;
+}
+
+
+.nodeMenuRightElements{
+	margin-left: auto;
+	width: 80px;
+}
+
+.nodeMenuRightElements div{
+	margin-top:1px;
+	margin-bottom:1px;
+	border-width: 1px;
+	border-style: solid;
+	background-color: white;
+	padding: 1px;
+	width: 50px;
+}
+
+.nodeMenuLeftElements{
+	margin-right: auto;
+	width: 80px;
+}
+
+.nodeMenuLeftElements div{
+	margin-top:1px;
+	margin-bottom:1px;
+	border-width: 1px;
+	border-style: solid;
+	background-color: white;
+	padding: 1px;
+	width: 60px;
+}

@@ -1,0 +1,46 @@
+.newsForm form{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.newsForm form div{
+	display: flex;
+	margin-top: 10px;
+}
+
+.newsForm form textarea{
+	width: 300px;
+	height: 300px;
+}
+
+.newsForm form div b{
+	width: 150px;
+	text-align: right;
+	margin-right: 5px;
+	font-size: 12pt;
+}
+
+.newsForm input{
+	width: 300px;
+}
+
+
+.newsForm input[type='file']{
+	visibility: hidden;
+	height: 1px;
+	width: 1px;
+}
+
+#addImageBtn{
+	width: 300px;
+}
+.imagesContainer{
+	width: 600px;
+	display: flex;
+	justify-content: space-between;
+}
+.preUpload{
+	max-height: 100px;
+	margin: 5px;
+}

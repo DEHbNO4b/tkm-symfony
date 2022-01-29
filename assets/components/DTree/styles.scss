@@ -1,0 +1,190 @@
+/*body {
+    font: 10px sans-serif;
+}
+.linage {
+    fill: none;
+    stroke: #000;
+}
+.marriage {
+    fill: none;
+    stroke: black;
+}
+.man {
+    background-color: #add8e6;
+    border-color: #1a89ac;
+}
+.woman {
+    background-color: #ffc0cb;
+    border-color: #ea6980;
+}
+
+.node{
+    display: flex;
+    position: relative;
+    width: 150px;
+    height: 50px;
+    border: 1px solid black;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.emphasis{
+        font-style: italic;
+}
+p {
+    padding:0;
+    margin:0;
+}
+
+.hidden{
+    display: none;
+}
+
+.click_field{
+    background-color: #000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 500px;
+}
+
+.plus_button {
+    display: flex;
+    position: absolute;
+    top: 0px;
+    left: 135px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    text-align: center;
+    min-width: 15px;
+    min-height: 15px;
+    max-width: 15px;
+    max-height: 15px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #00ff00;
+    z-index:3;
+    cursor: pointer;
+}
+
+.nodeMenu{
+    position: absolute;
+    top: -43px;
+    right: -108px;
+    display: flex;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 100px;
+}
+
+
+.nodeMenuRightElements{
+    margin-left: auto;
+    width: 80px;
+}
+
+.nodeMenuRightElements div{
+    margin-top:1px;
+    margin-bottom:1px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
+    padding: 1px;
+    width: 50px;
+}
+
+.nodeMenuLeftElements{
+    margin-right: auto;
+    width: 80px;
+}
+
+.nodeMenuLeftElements div{
+    margin-top:1px;
+    margin-bottom:1px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
+    padding: 1px;
+    width: 60px;
+}
+
+
+.plus_button_active{
+    position: relative;
+    top: auto;
+    left: auto;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    margin-right: 2px;
+}
+
+.sided_right{
+    margin-left: 10px;
+}
+
+.male{
+    border-color: #1a89ac;
+    cursor: pointer;
+}
+
+.female{
+    border-color: #ea6980;
+    cursor: pointer;
+}
+
+.male.active{
+    background-color: #b685ff;
+}
+
+.female.active{
+    background-color: #d36d62;
+}
+
+.node_form{
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid black;
+    top: -10px;
+    height: 80px;
+    width: 250px;
+}
+
+.node_form input{
+    background-color: #fff;
+    border: 1px solid black;
+    width: 90%;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.left{
+    left: -200px;
+}
+
+.right{
+    right: -200px;
+}   
+
+.top{
+    top: -80px;
+}
+
+.bottom{
+    top: 100px;
+}
+
+input[type='button']{
+    width: 80px;
+    margin: 10px;
+}
+
+.cancel{
+    float: left;
+}*/

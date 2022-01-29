@@ -1,0 +1,32 @@
+.node_form{
+	position: absolute;
+	background-color: #fff;
+	border: 1px solid black;
+	top: -10px;
+	height: 80px;
+	width: 250px;
+	//padding: 10px;
+}
+
+.node_form input{
+	background-color: #fff;
+	border: 1px solid black;
+	width: 92%;
+	align-self: flex-start;
+	margin-top: 10px;
+}
+
+.node_form input[type="text"]{
+	margin-left: 10px;
+}
+.node_form input[type='button']{
+	width: 90px;
+}
+
+.cancel{
+	float: left;
+}
+
+.save{
+	float: right;
+}
