@@ -111,10 +111,10 @@ class User extends AbstractController
     {
         $currentUser = $this->getUser();
         $result = [];
-          \App\Utils\Logger::log($this->tokenStorage->getToken(), '_User_getCurrentuser_token');
+         // \App\Utils\Logger::log($this->tokenStorage->getToken(), '_User_getCurrentuser_token');
         //$currentUser = $this->tokenStorage->getToken()->getUser();
         //$currentUser = $user;
-        \App\Utils\Logger::log($currentUser, '_User_getCurrentuser_');
+        // \App\Utils\Logger::log($currentUser, '_User_getCurrentuser_');
 
 
         if(gettype($currentUser)!="object") return new JsonResponse(array());
@@ -239,7 +239,7 @@ class User extends AbstractController
             $data = json_decode($content);
 
            //  \App\Utils\Logger::log($data, '_add_user');
-             \App\Utils\Logger::log($doctrine->getManager(), '_add_user');
+            //  \App\Utils\Logger::log($doctrine->getManager(), '_add_user');
 
             // Проверка введённых данных
             $firstname = $data->firstname;
@@ -287,7 +287,6 @@ class User extends AbstractController
                 \App\Utils\Logger::log($hashedPassword2, '_add_user');*/
 
 				$entityManager->persist($user);
-
                 $entityManager->flush();
 
                 $result['firstname'] = $firstname;

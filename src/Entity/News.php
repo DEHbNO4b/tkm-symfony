@@ -51,6 +51,11 @@ class News
      */
     private $tree_id;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $lastUpdate;
+
     public function getId()
     {
         return $this->id;
@@ -139,4 +144,10 @@ class News
 
         return $this;
     }
+
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
 }
+
