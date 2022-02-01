@@ -280,13 +280,13 @@ class User extends AbstractController
                 $user->setDateAdded( (new \DateTime) );
                 $user->setLastUpdate( (new \DateTime) );
 
-/*                \App\Utils\Logger::log(__file__.': '.__line__, '_add_user');
-                \App\Utils\Logger::log($hashedPassword, '_add_user');
-                \App\Utils\Logger::log($hashedPassword2, '_add_user');*/
+
+
 
 				$entityManager->persist($user);
                 $entityManager->flush();
-
+                \App\Utils\Logger::log(__file__.': '.__line__, '_add_user');
+                \App\Utils\Logger::log($user, '_add_user');
                 $result['firstname'] = $firstname;
                 $result['lastname'] = $lastname;
                 $result['mobileNumber'] = $mobileNumber;
@@ -313,7 +313,7 @@ class User extends AbstractController
                 }
 
                 $result['result'] = 'ok';
-                $this->loginUser($request, $doctrine, $passwordHasher, $mobileNumber, $password);
+               // $this->loginUser($request, $doctrine, $passwordHasher, $mobileNumber, $password);
             }
         }
 
