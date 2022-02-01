@@ -63,7 +63,7 @@ class User implements UserInterface,
     private $dateAdded;
     
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $lastUpdate;
     
@@ -126,6 +126,10 @@ class User implements UserInterface,
     public function setDateAdded($date)
     {
         $this->dateAdded = $date;
+    }
+    public function setLastUpdate($date)
+    {
+        $this->lastUpdate = $date;
     }
 
     public function getLastUpdate()

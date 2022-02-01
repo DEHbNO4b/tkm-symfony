@@ -271,16 +271,14 @@ class User extends AbstractController
                     $user,
                     $password
                 );
-                $hashedPassword2 = $passwordHasher->hashPassword(
-                    $user,
-                    $password
-                );
+
                 $user->setFirstname($firstname);
                 $user->setLastname($lastname);
                 $user->setPhone($mobileNumber);
                 $user->setEmail($email);
                 $user->setPassword($hashedPassword);
                 $user->setDateAdded( (new \DateTime) );
+                $user->setLastUpdate( (new \DateTime) );
 
 /*                \App\Utils\Logger::log(__file__.': '.__line__, '_add_user');
                 \App\Utils\Logger::log($hashedPassword, '_add_user');

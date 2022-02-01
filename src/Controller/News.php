@@ -28,7 +28,7 @@ class News extends AbstractController
 					n.header, 
 					n.text, 
 					n.video, 
-					img.path as image,
+					
 					n.last_update
 				FROM 
 					nodes as nd,
