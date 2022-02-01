@@ -162,11 +162,9 @@ class User extends AbstractController
         $password
     ){
         $result="error";
-       // $user = $entityManager->getRepository(E\User::class)->findOneBy(array("phone"=>$phone));
         $entityManager=$doctrine->getManager();
-
-       // $user = $this->findOneBy(array("phone"=>$phone));
 		$qb = $entityManager->createQueryBuilder();
+        \App\Utils\Logger::log("login user beginning", '_login_user_');
 		$qb
         ->select('u', 'r')
         ->from('App\Entity\User', 'u')
@@ -176,11 +174,17 @@ class User extends AbstractController
             \Doctrine\ORM\Query\Expr\Join::WITH,
             'r.user_id = u.id'
         )
-        ->where('u.phone = '.$phone)
+        ->where('u.phone = \''.$phone.'\'')
         ->orderBy('u.firstname', 'DESC');
 
-		$user = $qb->getQuery()->getResult();
+        \App\Utils\Logger::log("login user continue", '_login_user_');
+        \App\Utils\Logger::log($qb->getDql(), '_login_user_');
 
+
+        $user = $qb->getQuery()->getResult();
+
+        \App\Utils\Logger::log("end", '_login_user_');
+        \App\Utils\Logger::log($user, '_login_user_');
 
         if(!$user){
             return $result;
@@ -280,13 +284,10 @@ class User extends AbstractController
                 $user->setDateAdded( (new \DateTime) );
                 $user->setLastUpdate( (new \DateTime) );
 
-
-
-
 				$entityManager->persist($user);
                 $entityManager->flush();
-                \App\Utils\Logger::log(__file__.': '.__line__, '_add_user');
-                \App\Utils\Logger::log($user, '_add_user');
+                /*\App\Utils\Logger::log(__file__.': '.__line__, '_add_user');
+                \App\Utils\Logger::log($user, '_add_user');*/
                 $result['firstname'] = $firstname;
                 $result['lastname'] = $lastname;
                 $result['mobileNumber'] = $mobileNumber;
@@ -313,7 +314,7 @@ class User extends AbstractController
                 }
 
                 $result['result'] = 'ok';
-               // $this->loginUser($request, $doctrine, $passwordHasher, $mobileNumber, $password);
+                $this->loginUser($request, $doctrine, $passwordHasher, $mobileNumber, $password);
             }
         }
 
