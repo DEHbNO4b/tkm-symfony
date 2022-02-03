@@ -164,7 +164,6 @@ class User extends AbstractController
         $result="error";
         $entityManager=$doctrine->getManager();
 		$qb = $entityManager->createQueryBuilder();
-        \App\Utils\Logger::log("login user beginning", '_login_user_');
 		$qb
         ->select('u', 'r')
         ->from('App\Entity\User', 'u')
@@ -177,25 +176,13 @@ class User extends AbstractController
         ->where('u.phone = \''.$phone.'\'')
         ->orderBy('u.firstname', 'DESC');
 
-        \App\Utils\Logger::log("login user continue", '_login_user_');
-        \App\Utils\Logger::log($qb->getDql(), '_login_user_');
-
-
         $user = $qb->getQuery()->getResult();
-
-        \App\Utils\Logger::log("end", '_login_user_');
-        \App\Utils\Logger::log($user, '_login_user_');
-
         if(!$user){
             return $result;
         }
 
         if(!$passwordHasher->isPasswordValid($user[0], $password)){
-            /*\App\Utils\Logger::log(__file__.': '.__line__, '_login_user');
-            \App\Utils\Logger::log($user, '_login_user');
-            \App\Utils\Logger::log($password, '_login_user');*/
             return $result;
-
         }
         
 

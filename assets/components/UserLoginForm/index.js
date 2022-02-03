@@ -78,7 +78,7 @@ export default class UserLoginForm extends React.Component {
                         </div>
                         <div className="inputBlock">
                             +<input type="text" name="phone" onChange={this.handleChangePhone} pattern="^[0-9]{11}$"
-                                    title="Номер должен состоять из 11 цифр без пробелов" />
+                                    title="Номер должен состоять из 11 цифр без пробелов" autocomplete="off"/>
                         </div>
                     </div>
                     <div>
@@ -86,7 +86,8 @@ export default class UserLoginForm extends React.Component {
                             Пароль:
                         </div>
                         <div className="inputBlock">
-                            <input type="password" name="password" onChange={this.handleChangePassword} />
+                            <input type="password" name="password" onChange={this.handleChangePassword}
+                                   autocomplete="off"/>
                         </div>
                     </div>
                     <input type="submit" value="Submit" />
