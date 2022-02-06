@@ -39,10 +39,18 @@ export default class UserLoginForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch("/login", {method: 'post', body: JSON.stringify({
-               "phone": this.state.login,
-               "password": this.state.password
-            })
+        fetch("/login", {method: 'POST',
+                                    headers:{'Content-Type': 'application/json'},
+                                    body: JSON.stringify({
+                                        "security":{
+                                            "credentials":{
+                                                "username": this.state.login,
+                                                "password": this.state.password
+                                            }
+
+                                        }
+
+                                        })
         }).then(response=>response.json()).then(data=>{
             // console.log("login_result");
             // console.log(data);
@@ -50,7 +58,6 @@ export default class UserLoginForm extends React.Component {
             if(data.result==="ok"){
                 this.props.setUser({logined: "ok"});
                 this.goHome();
-
             }
             else{
                 this.setState({error: true});
@@ -77,8 +84,8 @@ export default class UserLoginForm extends React.Component {
                             Номер телефона:
                         </div>
                         <div className="inputBlock">
-                            +<input type="text" name="phone" onChange={this.handleChangePhone} pattern="^[0-9]{11}$"
-                                    title="Номер должен состоять из 11 цифр без пробелов" autocomplete="off"/>
+                            +<input type="text"  id="phone" name="phone" onChange={this.handleChangePhone} pattern="^[0-9]{11}$"
+                                    title="Номер должен состоять из 11 цифр без пробелов" autoComplete="on"/>
                         </div>
                     </div>
                     <div>
@@ -86,8 +93,8 @@ export default class UserLoginForm extends React.Component {
                             Пароль:
                         </div>
                         <div className="inputBlock">
-                            <input type="password" name="password" onChange={this.handleChangePassword}
-                                   autocomplete="off"/>
+                            <input type="password" id="password" name="password" onChange={this.handleChangePassword}
+                                   autoComplete="off"/>
                         </div>
                     </div>
                     <input type="submit" value="Submit" />

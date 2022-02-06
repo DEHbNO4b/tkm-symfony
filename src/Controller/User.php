@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 
 
@@ -28,6 +29,7 @@ class User extends AbstractController
     private TokenStorageInterface $tokenStorage;
     private SessionInterface $session;
     private EntityManagerInterface $entityManager;
+    private RequestStack $requestStack;
 
     public function __construct(
         Security $security,
@@ -35,13 +37,11 @@ class User extends AbstractController
         RequestStack $requestStack,
         EntityManagerInterface $entityManager
     ){
-        // Avoid calling getUser() in the constructor: auth may not
-        // be complete yet. Instead, store the entire Security object.
+
         $this->entityManager = $entityManager;
         $this->security = $security;
         $this->tokenStorage = $tokenStorage;
-        $this->session = $requestStack->getSession();
-
+        $this->requestStack = $requestStack;
     }
 
     #[Route('/getUser/{id}', name: 'get_user_by_id')]
@@ -73,43 +73,45 @@ class User extends AbstractController
 
 
 
-	public function passwordCorretById($id, $password_in)
-    {
-		$result['result'] = 'failed';
+//	public function passwordCorretById($id, $password_in)
+//    {
+//		$result['result'] = 'failed';
+//
+//        /*$resultSet = $this->getDoctrine()
+//            ->getRepository(E\User::class)
+//            ->find($id);*/
+//        $resultSet = $this->getUserById($id);
+//
+//        if (!$resultSet) {
+//            throw $this->createNotFoundException(
+//                'No user found for id '.$id
+//            );
+//        }
+//
+//        $passwordHash = $resultSet->getPassword();
+//        $salt= $resultSet->getSalt();
+//
+//		if($this->createPasswordHash($password_in, $salt) == $passwordHash){$result['result'] = 'ok';}
+//
+//        return new JsonResponse($result);
+//    }
 
-        /*$resultSet = $this->getDoctrine()
-            ->getRepository(E\User::class)
-            ->find($id);*/
-        $resultSet = $this->getUserById($id);
-
-        if (!$resultSet) {
-            throw $this->createNotFoundException(
-                'No user found for id '.$id
-            );
-        }
-
-        $passwordHash = $resultSet->getPassword();
-        $salt= $resultSet->getSalt();
-
-		if($this->createPasswordHash($password_in, $salt) == $passwordHash){$result['result'] = 'ok';}
-
-        return new JsonResponse($result);
-    }
-
-	protected function createPasswordHash($plainPassword, $salt)
+/*	protected function createPasswordHash($plainPassword, $salt)
     {
         $hash = sha1($plainPassword|$salt);
         $first4chars = substr($hash, 0, 4);
         $last6chars = substr($hash, -6, 6);
 
         return $last6chars.substr($hash, 4, strlen($hash)-10).$first4chars;
-    }
+    }*/
 
     #[Route('/getCurrentUser', name: 'get_current_user')]
     public function getCurrentUser(
         EntityManagerInterface $entityManager)
     {
-        $currentUser = $this->getUser();
+      //  $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->security->getUser();
+       // $currentUser = $this->tokenStorage->getToken()->getUser();
         $result = [];
          // \App\Utils\Logger::log($this->tokenStorage->getToken(), '_User_getCurrentuser_token');
         //$currentUser = $this->tokenStorage->getToken()->getUser();
@@ -132,25 +134,30 @@ class User extends AbstractController
 
 
     #[Route('/login', name: 'user_sign_in')]
-    public function login(Request $request,
+    public function login(
+                        Request $request,
                           ManagerRegistry $doctrine,
                           UserPasswordHasherInterface $passwordHasher,
-                          AuthenticationUtils $authenticationUtils)
+                          AuthenticationUtils $authenticationUtils
+
+    )
     {
         $result['result'] = 'error';
+        $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
-        \App\Utils\Logger::log($error, '_User_login-error_');
+
+         \App\Utils\Logger::log($request->getContent(), '_User_login-request_');
 
         if ('POST' === $request->getMethod()) {
             $content = $request->getContent();
             $data = json_decode($content);
-
-            if($this->checkUserLoginData($data)){
-                $res = $this->loginUser($request, $doctrine, $passwordHasher,  $data->phone, $data->password);
-                $result["result"] = $res;
-            }
+            \App\Utils\Logger::log($content, '_User_login_');
+           // if($this->checkUserLoginData($data)){
+                //$res = $this->loginUser($request, $doctrine, $passwordHasher,  $data->_username, $data->_password);
+                //$result["result"] = $res;
+           //     $result["result"] = "ok";
+           // }
         }
-       // $tt = $this->getCurrentUser($this->entityManager);
         return new JsonResponse($result);
     }
 
@@ -205,12 +212,21 @@ class User extends AbstractController
 
         $this->tokenStorage->setToken($token);
         //$this->session->set('_security_main', serialize($token));
-        $request->getSession()->set('_security_main', serialize($token));
-        $event = new InteractiveLoginEvent($request, $token);
+        //$request->getSession()->set('_security_main', serialize($token));
 
+
+       //  \App\Utils\Logger::log(serialize($token), '_login_user_');
+
+        $session = $this->requestStack->getSession();
+        $session->set('_security_main', serialize($token));
+
+       // \App\Utils\Logger::log($session->get('_security_main'), '_login_user_');
+
+        $event = new InteractiveLoginEvent($request, $token);
+        $dispatcher = new EventDispatcher();
+        $dispatcher->dispatch($event,"security.interactive_login" );
 
         $result = "ok";
-
         return $result;
     }
 
@@ -390,13 +406,13 @@ class User extends AbstractController
 
     protected function checkUserLoginData($data)
     {
-        if(! isset($data->phone) || !isset($data->password)){
+        if(! isset($data->username) || !isset($data->password)){
             return false;
         }
-        if(!$data->phone || !$data->password){
+        if(!$data->username || !$data->password){
             return false;
         }
-        if(!preg_match('/^[0-9]{11}$/',$data->phone)){
+        if(!preg_match('/^[0-9]{11}$/',$data->username)){
             return false;
         }
         return true;

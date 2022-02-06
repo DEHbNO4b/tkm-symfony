@@ -1,31 +1,42 @@
 <?php
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use PhpParser\Node\Expr\Array_;
-use Serializable;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"phone"}, message="There is already an account with this phone")
  */
-class User implements UserInterface,
-                            Serializable,
-                                PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-	 const PASSWORD_MIN_LENGTH = 2;
-	 const NAMES_MIN_LENGTH = 2;
-	
     /**
-     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -40,187 +51,145 @@ class User implements UserInterface,
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $passwordHash;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true )
-     */
-    private $passwordSalt;
-
-    /**
-     * @ORM\Column(type="string", length=40, unique=true)
-     */
-    private $phone;
-
-    /**
-     * @ORM\Column(type="string", length=100, unique=true)
-     */
     private $email;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $dateAdded;
-    
+
     /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime")
      */
     private $lastUpdate;
-    
-    
-    public function __construct()
-    {
-        
-    }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
-    
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-    
-    public function setFirstname($name)
-    {
-        $this->firstname = $name;
-    }
-    
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-    
-    public function setLastname($name)
-    {
-        $this->lastname = $name;
-    }
 
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
-    
-    public function setPhone($phone)
+
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
     }
 
-    public function getEmail()
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->phone;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
-    
-    public function setEmail($email)
+
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
-    public function getDateAdded()
+    public function getDateAdded(): ?\DateTimeInterface
     {
         return $this->dateAdded;
     }
-    
-    public function setDateAdded($date)
+
+    public function setDateAdded(\DateTimeInterface $dateAdded): self
     {
-        $this->dateAdded = $date;
-    }
-    public function setLastUpdate($date)
-    {
-        $this->lastUpdate = $date;
+        $this->dateAdded = $dateAdded;
+
+        return $this;
     }
 
-    public function getLastUpdate()
+    public function getLastUpdate(): ?\DateTimeInterface
     {
         return $this->lastUpdate;
     }
 
-    public function getSalt(): ?string
+    public function setLastUpdate(\DateTimeInterface $lastUpdate): self
     {
-        return $this->passwordSalt;
-    }
-    /**
-     * @return string the hashed password for this user
-     */
-    public function getPassword() :string
-    {
-        return $this->passwordHash;
-    }
+        $this->lastUpdate = $lastUpdate;
 
-    public function setPassword($plainPassword)
-    {
-        // $salt = $this->createSalt();
-        // $this->passwordSalt = $salt;
-//        $this->passwordHash = $this->createPasswordHash($plainPassword, $salt);
-        $this->passwordHash =$plainPassword;
+        return $this;
     }
-
-    public function checkPassword($plainPassword)
-    {        
-        return $this->createPasswordHash($plainPassword, $this->getSalt()) === $this->getPassword();
-    }
-
-    public function getRoles() :array
-    {
-        return array('isUser');
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->phone,
-            $this->passwordHash,
-            // смотрите раздел о соли ниже
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->phone,
-            $this->passwordHash,
-            // смотрите раздел о соли ниже
-            // $this->salt
-        ) = unserialize($serialized);
-    }
-
-    public function getUsername(): string
-    {
-        return $this->getFirstname().' '.$this->getLastname();
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserIdentifier(): string
-    {
-        // TODO: Implement getUserIdentifier() method.
-        return (string) $this->phone;
-    }
-    protected function createSalt()
-    {
-        return base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-    }
-
-    protected function createPasswordHash($plainPassword, $salt)
-    {
-        $hash = sha1($plainPassword|$salt);
-        $first4chars = substr($hash, 0, 4);
-        $last6chars = substr($hash, -6, 6);
-
-        return $last6chars.substr($hash, 4, strlen($hash)-10).$first4chars;
-    }
-
-
 }
